@@ -2130,13 +2130,9 @@ public final class CharSeq implements Kind1<CharSeq, Character>, CharSequence, I
      * @throws PatternSyntaxException if the regular expression's syntax is invalid
      * @see java.util.regex.Pattern
      */
-    public CharSeq[] split(String regex, int limit) {
+    public Seq<CharSeq> split(String regex, int limit) {
         final String[] javaStrings = back.split(regex, limit);
-        final CharSeq[] strings = new CharSeq[javaStrings.length];
-        for (int i = 0; i < strings.length; i++) {
-            strings[i] = of(javaStrings[i]);
-        }
-        return strings;
+        return Array.of(javaStrings).map(CharSeq::of);
     }
 
     /**
@@ -2168,7 +2164,7 @@ public final class CharSeq implements Kind1<CharSeq, Character>, CharSequence, I
      * @throws PatternSyntaxException if the regular expression's syntax is invalid
      * @see java.util.regex.Pattern
      */
-    public CharSeq[] split(String regex) {
+    public Seq<CharSeq> split(String regex) {
         return split(regex, 0);
     }
 
